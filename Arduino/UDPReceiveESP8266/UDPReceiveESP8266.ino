@@ -16,6 +16,7 @@ char incomingPacket[255];  // buffer for incoming packets
 
 void setup() {
   Serial.begin(9600);
+  Serial.println("بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم");
 
   // ----------------- connect to wifi -----------------
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
@@ -34,11 +35,9 @@ void setup() {
   // ----------------------------------------------------
 
   Udp.begin(localUdpPort);
-  
-  Serial.println("بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم");
 }
 
 void loop() {
   getData();
-  delay(10);
+  delay(91);
 }

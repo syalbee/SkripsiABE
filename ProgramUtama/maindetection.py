@@ -133,7 +133,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
                                 ) 
             # kirimUDP
-            dataSemua = "$" + str(round(nilaiBahukiri)) +";" + str(round(nilaiBahukanan)) +";"+ str(round(nilaSikukiri)) + ";" + str(round(nilaSikukanan)) +"#"
+            dataSemua = str(round(nilaiBahukiri)) +";" + str(round(nilaiBahukanan)) +";"+ str(round(nilaSikukiri)) + ";" + str(round(nilaSikukanan))
             kirimUDP(dataSemua)     
 
         except:
