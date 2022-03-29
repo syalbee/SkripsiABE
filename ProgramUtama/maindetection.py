@@ -1,10 +1,21 @@
+# ِبِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيْم
+
 import cv2
 import mediapipe as mp
 import numpy as np
+import socket
+
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
-
+ip = "192.168.100.169"
+port = 2609
 cap = cv2.VideoCapture(2)
+sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+
+
+def kirimUDP(data):
+    sock.sendto(data.encode('utf-8'), (ip, port))
+
 
 def sudutBahuKanan(a,b,c):
     a = np.array(a) # Awal
@@ -99,6 +110,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             # Kalkulasi siku kiri
             nilaSikukanan = sudutSikuKanan(bahuKanan, sikuKanan, ptanganKanan)
 
+            
             # tampil kalkulasi bahu kiri
             cv2.putText(image, str(round(nilaiBahukiri)), 
                            tuple(np.multiply(bahuKiri, [640, 480]).astype(int)), 
@@ -119,7 +131,11 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             cv2.putText(image, str(round(nilaSikukanan)), 
                            tuple(np.multiply(sikuKanan, [640, 480]).astype(int)), 
                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
-                                )      
+                                ) 
+            # kirimUDP
+            dataSemua = "$" + str(round(nilaiBahukiri)) +";" + str(round(nilaiBahukanan)) +";"+ str(round(nilaSikukiri)) + ";" + str(round(nilaSikukanan)) +"#"
+            kirimUDP(dataSemua)     
+
         except:
             pass
         
